@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/logout', (req, res) => {
+router.post('/refresh', (req, res) => {
     try {
         if ( req.cookies?.jwt ) {
             const refresh_token = req.cookies.jwt
@@ -106,7 +106,7 @@ router.post('/logout', (req, res) => {
     }
 })
 
-router.post('/refresh', (req, res) => {
+router.post('/logout', (req, res) => {
     try {
         
     } catch (err) {
