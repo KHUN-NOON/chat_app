@@ -1,4 +1,5 @@
 require('dotenv').config()
+var { instrument } = require('@socket.io/admin-ui')
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -13,7 +14,8 @@ var app = express()
 var httpServer = http.createServer(app)
 var io = new Server(httpServer, {
   cors: {
-    origin: "*"
+    origin: ["https://admin.socket.io", "http://localhost:5173"],
+    credentials: true
   }
 })
 
@@ -55,6 +57,12 @@ app.use(function(err, req, res, next) {
 
 // Passing Socket.io instance in io namespaces
 init(io)
+
+// Socket.io admin-ui
+instrument(io, {
+  auth: false,
+  // mode: 'development'
+})
 
 httpServer.listen(port, () => {
   console.log(`ExpressJS Running On Port: ${port}`)
